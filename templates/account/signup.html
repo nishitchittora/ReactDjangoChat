@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Login</title>
+  <title>Signup</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -19,22 +19,26 @@
   </div>
 {% endfor %}
 <div class="container">
-  <h2>Login</h2>
-  <form method="post" action="{% url 'core:login' %}">
+  <h2>Signup</h2>
+  <form method="post" action="{% url 'core:signup' %}">
   	{% csrf_token %}
     <div class="form-group">
       <label for="email">Username:</label>
-      <input type="text" class="form-control" id="email" placeholder="Enter Username" name="username" required="true">
+      <input type="text" class="form-control" id="email" placeholder="Enter Username" name="username">
     </div>
     <div class="form-group">
       <label for="pwd">Password:</label>
-      <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="password" required="true">
+      <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="password">
+    </div>
+    <div class="form-group">
+      <label for="cfm_pwd">Confirm Password:</label>
+      <input type="password" class="form-control" id="cfm_pwd" placeholder="Enter Confirm password" name="confirm_password">
     </div>
     <div class="checkbox">
       <label><input type="checkbox" name="remember"> Remember me</label>
     </div>
     <div>
-    	<p>New to the Site <a href="{% url 'core:signup' %}">Sign Up</a></p>
+    	<p>Old to the Site <a href="{% url 'core:login' %}">Log In</a></p>
     </div>
     <br/>
     <button type="submit" class="btn btn-default">Submit</button>

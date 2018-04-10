@@ -21,8 +21,7 @@ from allauth.account.views import LoginView,SignupView, LogoutView
 urlpatterns = [
     url(r'^accounts/', include('allauth.urls')),
     url(r'^admin/', admin.site.urls),
-    # url(r'^', TemplateView.as_view(template_name="index.html"), name="index"),
-   	url(r'^', include('core.urls', namespace='core')),
+    url(r'^', include('core.urls', namespace='core')),
    	url(r'^', include('chat.urls', namespace='chat'))
 ]    
 

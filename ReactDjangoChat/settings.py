@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'crispy_forms',
+    'channels',
     'chat',
     'core'
 ]
@@ -146,4 +147,32 @@ WEBPACK_LOADER = {
         }
 }
 
-LOGIN_REDIRECT_URL = 'index'
+LOGIN_REDIRECT_URL = 'chat:about'
+ACCOUNT_UNIQUE_USERNAME = True
+ACCOUNT_USERNAME_REQUIRED = True
+
+
+### Django Channels
+
+redis_host = os.environ.get('REDIS_HOST', 'localhost')
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "asgi_redis.RedisChannelLayer",
+        "CONFIG":{
+            "hosts": [(redis_host, 6379)],
+        },
+        "ROUTING": "ReactDjangoChat.routing.channel_routing",
+    },
+}
+
+from django.contrib.messages import constants as messages
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'alert-info',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
+}
+

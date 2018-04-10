@@ -4,7 +4,7 @@
 {% block content %}
   {% load staticfiles %}
   <h1>{{ room.label }}</h1>
-  <form id="chatform">
+  <form>
     <table id="chat">
       <tbody>
         {% for message in messages %}
@@ -17,10 +17,10 @@
       </tbody>
       <tfoot>
       <tr>
-        <td>Say something:</td>
+        <td>Type Your Message:</td>
         <td colspan=2>
           <input id="message" type="text" placeholder="message">
-          <button type="submit" id="go">Say it</button>
+          <input type="button" id="go" value="Say it" />
         </td>
       </tfoot>
     </table>
@@ -28,7 +28,50 @@
 {% endblock content %}
 
 {% block afterbody %}
-  <script type="text/javascript" src='{% static "jquery-1.12.1.min.js" %}'></script>
-  <script type="text/javascript" src='{% static "reconnecting-websocket.min.js" %}'></script>
-  <script type="text/javascript" src='{% static "chat.js" %}'></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/reconnecting-websocket/1.0.0/reconnecting-websocket.min.js"></script>
+  <script>
+    $(function() {
+        // When we're using HTTPS, use WSS too.
+        var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
+        var chatsock = new ReconnectingWebSocket(ws_scheme + '://' + window.location.host + "/chat"+window.location.pathname);
+        chatsock.onopen = function(){
+            console.log("Connected!!!!");
+        }
+
+        chatsock.onclosed = function(){
+            console.log("Connecting!!!!");
+        }
+
+
+        chatsock.onmessage = function(message) {
+            var data = JSON.parse(message.data);
+            console.log(data);
+            var chat = $("#chat");
+            var ele = $('<tr></tr>');
+            ele.append(
+                $("<td></td>").text(data.timestamp)
+            )
+            ele.append(
+                $("<td></td>").text(data.handle)
+            )
+            ele.append(
+                $("<td></td>").text(data.message)
+            )
+            
+            chat.append(ele)
+        };
+
+        $("#go").click(function() {
+            console.log($('#message').val());
+            var message = {
+                message: $('#message').val(),
+                handle: '{{request.user.username}}'
+            }
+            chatsock.send(JSON.stringify(message));
+            $("#message").val('').focus();
+            return false;
+        });
+    });
+  </script>
 {% endblock afterbody %}
