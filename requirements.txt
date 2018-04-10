@@ -2,7 +2,6 @@ asgi-ipc==1.3.1
 asgi-redis==1.4.3
 asgiref==1.1.2
 asn1crypto==0.24.0
-async-timeout==2.0.1
 pathlib==1.0.1
 attrs==17.4.0
 autobahn==18.3.1
