@@ -95,5 +95,3 @@ zope.tal==4.3.1
 zope.tales==4.2.0
 zope.traversing==4.2.0
 zope.viewlet==4.1.0
-Gunicorn
-whitenoise
