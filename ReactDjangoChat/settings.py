@@ -155,6 +155,7 @@ ACCOUNT_USERNAME_REQUIRED = True
 ### Django Channels
 
 redis_host = os.environ.get('REDIS_HOST', 'redis://localhost:')
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 CHANNEL_LAYERS = {
     "default": {
