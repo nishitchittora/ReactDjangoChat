@@ -154,13 +154,13 @@ ACCOUNT_USERNAME_REQUIRED = True
 
 ### Django Channels
 
-redis_host = os.environ.get('REDIS_HOST', 'localhost')
+redis_host = os.environ.get('REDIS_HOST', 'redis://localhost:')
 
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "asgi_redis.RedisChannelLayer",
         "CONFIG":{
-            "hosts": [(redis_host, 6379)],
+            "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
         },
         "ROUTING": "ReactDjangoChat.routing.channel_routing",
     },
