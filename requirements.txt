@@ -13,7 +13,7 @@ cffi==1.11.5
 channels==1.1.5
 chardet==3.0.4
 constantly==15.1.0
-cryptography==2.2.2
+cryptography==3.2
 daphne==1.4.2
 DateTime==4.2
 defusedxml==0.5.0
