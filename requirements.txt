@@ -54,7 +54,7 @@ six==1.11.0
 transaction==2.2.1
 Twisted==17.9.0
 txaio==2.9.0
-urllib3==1.22
+urllib3==1.26.5
 whitenoise==3.3.1
 zc.lockfile==1.2.1
 ZConfig==3.2.0
